@@ -66,23 +66,38 @@ function ClothingCareAssistantScreen() {
   };
 
   const callOpenAIAPI = async (text, imageUri) => {
-    const API_KEY = OPENAI_API_KEY
+    const API_KEY = OPENAI_API_KEY;
     const API_URL = 'https://api.openai.com/v1/chat/completions';
-
+  
+    let messages = [
+      { role: "system", content: "You are a clothing care assistant. If an image is provided, analyze it and provide care instructions for the clothing item shown." },
+    ];
+  
+    if (imageUri) {
+      const base64Image = await convertImageToBase64(imageUri);
+      messages.push({
+        role: "user",
+        content: [
+          { type: "text", text: text || "Please analyze this clothing item and provide care instructions." },
+          { type: "image_url", image_url: { url: `data:image/jpeg;base64,${base64Image}` } }
+        ]
+      });
+    } else {
+      messages.push({ role: "user", content: text });
+    }
+  
     try {
       const response = await axios.post(API_URL, {
-        model: "gpt-3.5-turbo",
-        messages: [
-          { role: "system", content: "You are a clothing care assistant." },
-          { role: "user", content: text }
-        ]
+        model: "gpt-4-vision-preview",
+        messages: messages,
+        max_tokens: 300
       }, {
         headers: {
           'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json'
         }
       });
-
+  
       return response.data.choices[0].message.content;
     } catch (error) {
       console.error('OpenAI API error:', error);
