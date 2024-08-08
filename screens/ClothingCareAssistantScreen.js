@@ -17,7 +17,7 @@ function ClothingCareAssistantScreen() {
 
   const loadMessages = async () => {
     try {
-      const savedMessages = await AsyncStorage.getItem('clothingCareMessages');
+      const savedMessages = await AsyncStorage.getItem('messagesList');
       if (savedMessages) {
         setMessages(JSON.parse(savedMessages));
       }
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   botMessage: {
     alignSelf: 'flex-start',
-    backgroundColor: '#E5E5EA',
+    backgroundColor: '#7F967D',
   },
   messageText: {
     color: '#FFFFFF',
