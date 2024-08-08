@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const services = [
   {
@@ -25,18 +26,28 @@ const services = [
   },
 ];
 
+
 function StyleScreen() {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>STYLING SERVICES</Text>
       {services.map((service, index) => (
-        <View key={index} style={[styles.serviceContainer, { backgroundColor: service.backgroundColor }]}>
+        <TouchableOpacity
+          key={index}
+          style={[styles.serviceContainer, { backgroundColor: service.backgroundColor }]}
+          onPress={() => {
+            if (index === 0) {
+              navigation.navigate('ClothingCareAssistant');
+            }
+          }}
+        >
           <Image source={service.image} style={styles.image} />
           <View style={styles.textContainer}>
             <Text style={[styles.serviceName, { color: service.textColor }]}>{service.name}</Text>
             <Text style={[styles.description, { color: service.textColor }]}>{service.description}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );
