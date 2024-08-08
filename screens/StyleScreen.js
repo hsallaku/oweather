@@ -29,6 +29,14 @@ const services = [
 
 function StyleScreen() {
   const navigation = useNavigation();
+
+  const handleServicePress = (serviceName) => {
+    if (serviceName === "CLOTHING CARE ASSISTANT") {
+      navigation.navigate('ClothingCareAssistant');
+    }
+    // Add navigation for other services if needed
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>STYLING SERVICES</Text>
@@ -36,11 +44,7 @@ function StyleScreen() {
         <TouchableOpacity
           key={index}
           style={[styles.serviceContainer, { backgroundColor: service.backgroundColor }]}
-          onPress={() => {
-            if (index === 0) {
-              navigation.navigate('ClothingCareAssistant');
-            }
-          }}
+          onPress={() => handleServicePress(service.name)}
         >
           <Image source={service.image} style={styles.image} />
           <View style={styles.textContainer}>
