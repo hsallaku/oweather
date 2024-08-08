@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "dressr2.0",
-    "slug": "dressr2.0",
+    "name": "OWeather",
+    "slug": "OWeather",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,7 +27,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Dressr to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Allow OWeather to use your location."
         }
       ],
       ["expo-router"]
